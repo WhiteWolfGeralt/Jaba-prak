@@ -1,0 +1,26 @@
+@startuml
+caption Схема навигации страниц
+component [Главная страница] as mainPage
+component [Список людей] as humansListPage
+component [Персональная страница человека] as humanPage
+component [Страница с генератором\nдерева] as generatorPage
+component [Страница с готовым деревом] as treePage
+component [Страница с примерами\nдеревьев] as examplePage
+
+
+mainPage -d-> humansListPage : Все люди
+mainPage -d-> generatorPage : Для создания дерева
+mainPage -d-> humanPage : Поиск человека\nпо имени
+mainPage -d-> examplePage : Просмотр уже готовых деревьев
+
+treePage -d-> examplePage : Возможность сохранить\nдерево
+
+humansListPage -d-> humanPage : Поиск человека\nпо имени
+
+generatorPage -d-> treePage : Сгенерированное дерево
+
+examplePage -d-> generatorPage : Для создания дерева
+
+humanPage -d-> generatorPage : Создать дерево\nс человеком
+
+@enduml
