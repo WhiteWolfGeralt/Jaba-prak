@@ -19,14 +19,23 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	//implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework:spring-orm:5.3.16'
+	implementation 'org.projectlombok:lombok:1.18.22'
 	implementation 'org.hibernate:hibernate-core:5.6.5.Final'
+	implementation 'org.postgresql:postgresql:42.3.3'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
+
 	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.hibernate:hibernate-core:5.6.5.Final'
+	testImplementation 'org.postgresql:postgresql:42.3.3'
 }
 
 tasks.named('test') {
