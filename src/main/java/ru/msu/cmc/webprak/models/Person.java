@@ -3,7 +3,6 @@ package ru.msu.cmc.webprak.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -29,10 +28,10 @@ public class Person {
     private String gender;
 
     @Column(name = "date_of_birth")
-    private Date birth;
+    private long birth;
 
     @Column(name = "date_of_death")
-    private Date death;
+    private long death;
 
     @Column(name = "characteristic")
     private String character;
@@ -45,8 +44,8 @@ public class Person {
         return Objects.equals(person_id, other.person_id)
                 && name.equals(other.name)
                 && gender.equals(other.gender)
-                && birth.equals(other.birth)
-                && death.equals(other.death)
+                && Objects.equals(birth, other.birth)
+                && Objects.equals(death, other.death)
                 && character.equals(other.character);
     }
 }

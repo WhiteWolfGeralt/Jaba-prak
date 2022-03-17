@@ -26,13 +26,20 @@ public class Relation {
     @Column(nullable = false, name = "relation_id")
     private long relation_id;
 
-    @Column(nullable = false, name = "target_person")
-    private long target;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_person")
+    @ToString.Exclude
+    @NonNull
+    private Person target;
 
-    @Column(nullable = false, name = "perform_person")
-    private long perform;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "perform_person")
+    @ToString.Exclude
+    @NonNull
+    private Person perform;
 
     @Column(nullable = false, name = "type_of_relation")
+    @NonNull
     private RelType type;
 
     @Column(name = "start_of_relation")
