@@ -8,6 +8,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Person> personList = DAOFactory.getInstance().getPersonDAO().getPersonAll();
+        List<Person> foltestName = DAOFactory.getInstance().getPersonDAO().getPersonByName("Foltest");
         var a = 5;
     }
 }

@@ -9,6 +9,7 @@ public interface PersonDAO {
     void updatePerson(Person person);
     void deletePerson(Person person);
 
+    List<Person> getPersonByName(String personName);
     Person getPersonById(Long personId);
     List<Person> getPersonAll();
 }

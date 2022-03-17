@@ -38,6 +38,17 @@ public class PersonDAOImpl implements PersonDAO {
     }
 
     @Override
+    public List<Person> getPersonByName(String personName) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query<Person> query = session.createQuery("FROM Person WHERE name LIKE :gotName", Person.class)
+                .setParameter("gotName", "%" + personName + "%");
+        if (query.getResultList().size() == 0) {
+            return null;
+        }
+        return query.getResultList();
+    }
+
+    @Override
     public Person getPersonById(Long personId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query<Person> query = session.createQuery("FROM Person WHERE person_id = :param", Person.class)
