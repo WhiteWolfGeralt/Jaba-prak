@@ -1,0 +1,7 @@
+гуид
+
+1) https://start.spring.io/ создаем себе проект
+2) распаковываем все в идею, она автоматически должна подгрузить все необходимое для gradle
+3) создаем postgreSQL базу данных(можно через пгадмин), достаточно только базу, все остальное будет программно
+4) связываем идею и БД(нужна идея ultimate), в build.gradle dependencies добавляем "implementation 'org.hibernate:hibernate-core:5.6.5.Final'", "implementation 'org.postgresql:postgresql:42.3.2'" "testImplementation 'org.hibernate:hibernate-core:5.6.5.Final'", "testImplementation 'org.postgresql:postgresql:42.3.2'" (все это есть в интернете, если что)
+5) для каждой таблицы создаем свой класс с описанием полей. к каждой таблице нужен свой контроллер(Data Access Object)
