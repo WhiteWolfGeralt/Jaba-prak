@@ -13,8 +13,11 @@ public class WebPrakApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebPrakApplication.class, args);
 
-		List<Person> foltestName = DAOFactory.getInstance().getPersonDAO().getPersonByName("Фольтест");
-		System.out.println(foltestName);
+		List<Person> fionaName = DAOFactory.getInstance().getPersonDAO().getPersonByName("Фиона");
+		if (fionaName != null) {
+			for (var person : fionaName) {
+				System.out.println(person.toString());
+			}
+		}
 	}
-
 }
