@@ -3,7 +3,6 @@ package ru.msu.cmc.webprak.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -43,10 +42,10 @@ public class Relation {
     private RelType type;
 
     @Column(name = "start_of_relation")
-    private Date start;
+    private Long start;
 
     @Column(name = "end_of_relation")
-    private Date end;
+    private Long end;
 
     @Override
     public boolean equals(Object o) {

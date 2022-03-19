@@ -28,10 +28,10 @@ public class Person {
     private String gender;
 
     @Column(name = "date_of_birth")
-    private long birth;
+    private Long birth;
 
     @Column(name = "date_of_death")
-    private long death;
+    private Long death;
 
     @Column(name = "characteristic")
     private String character;
