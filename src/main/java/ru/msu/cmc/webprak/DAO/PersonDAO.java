@@ -1,13 +1,11 @@
 package ru.msu.cmc.webprak.DAO;
 
+import ru.msu.cmc.webprak.DAO.impl.CommonDAOImpl;
 import ru.msu.cmc.webprak.models.Person;
 
 import java.util.List;
 
-public interface PersonDAO {
-    void addPerson(Person person);
-    void updatePerson(Person person);
-    void deletePerson(Person person);
+public interface PersonDAO extends CommonDAO<Person, Long> {
 
     List<Person> getPersonByName(String personName);
     Person getPersonById(Integer personId);

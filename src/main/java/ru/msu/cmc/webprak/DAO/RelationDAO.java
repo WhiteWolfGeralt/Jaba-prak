@@ -5,13 +5,10 @@ import ru.msu.cmc.webprak.models.Relation;
 
 import java.util.List;
 
-public interface RelationDAO {
-    void addRelation(Relation relation);
-    void updateRelation(Relation relation);
-    void deleteRelation(Relation relation);
+public interface RelationDAO extends CommonDAO<Relation, Long> {
 
     Relation getRelationById(Long relationId);
     List<Relation> getRelationAll();
 
-    List<Person> getByRelType(Long personId, Relation.RelType type, String method);
+    List<Person> getByRelType(Long personId, Relation.RelType type, String method) throws Exception;
 }

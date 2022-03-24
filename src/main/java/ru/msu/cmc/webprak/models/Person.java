@@ -13,12 +13,12 @@ import java.util.Objects;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Person {
+public class Person implements CommonEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "person_id")
-    private Long personId;
+    private Long id;
 
     @Column(nullable = false, name = "person_name")
     @NonNull
@@ -35,6 +35,7 @@ public class Person {
     private Long death;
 
     @Column(name = "characteristic")
+    @NonNull
     private String character;
 
     @Override
@@ -42,7 +43,7 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person other = (Person) o;
-        return Objects.equals(personId, other.personId)
+        return Objects.equals(id, other.id)
                 && name.equals(other.name)
                 && gender.equals(other.gender)
                 && Objects.equals(birth, other.birth)

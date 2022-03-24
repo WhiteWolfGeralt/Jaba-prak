@@ -13,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Relation {
+public class Relation implements CommonEntity<Long> {
     public enum RelType {
         CHILD_IN_LAW,
         SPOUSE_IN_LAW,
@@ -24,7 +24,7 @@ public class Relation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "relation_id")
-    private Long relationId;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "target_person")
@@ -53,7 +53,7 @@ public class Relation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Relation other = (Relation) o;
-        return Objects.equals(relationId, other.relationId)
+        return Objects.equals(id, other.id)
                 && Objects.equals(target, other.target)
                 && Objects.equals(perform, other.perform)
                 && Objects.equals(type, other.type)
