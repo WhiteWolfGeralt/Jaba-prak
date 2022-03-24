@@ -10,6 +10,6 @@ public interface PersonDAO {
     void deletePerson(Person person);
 
     List<Person> getPersonByName(String personName);
-    Person getPersonById(Long personId);
+    Person getPersonById(Integer personId);
     List<Person> getPersonAll();
 }

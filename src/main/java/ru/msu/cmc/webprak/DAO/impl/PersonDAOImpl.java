@@ -41,31 +41,26 @@ public class PersonDAOImpl implements PersonDAO {
     public List<Person> getPersonByName(String personName) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query<Person> query = session.createQuery("FROM Person WHERE name LIKE :gotName", Person.class)
-                .setParameter("gotName", "%" + personName + "%");
-        if (query.getResultList().size() == 0) {
-            return null;
-        }
-        return query.getResultList();
+                .setParameter("gotName", likeExpr(personName));
+        return query.getResultList().size() == 0 ? null : query.getResultList();
     }
 
     @Override
-    public Person getPersonById(Long personId) {
+    public Person getPersonById(Integer personId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query<Person> query = session.createQuery("FROM Person WHERE person_id = :param", Person.class)
+        Query<Person> query = session.createQuery("FROM Person WHERE personId = :param", Person.class)
                 .setParameter("param", personId);
-        if (query.getResultList().size() == 0) {
-            return null;
-        }
-        return query.getResultList().get(0);
+        return query.getResultList().size() == 0 ? null : query.getResultList().get(0);
     }
 
     @Override
     public List<Person> getPersonAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query<Person> query = session.createQuery("FROM Person", Person.class);
-        if (query.getResultList().size() == 0) {
-            return null;
-        }
-        return query.getResultList();
+        return query.getResultList().size() == 0 ? null : query.getResultList();
+    }
+
+    private String likeExpr(String param) {
+        return "%" + param + "%";
     }
 }

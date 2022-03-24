@@ -11,13 +11,14 @@ import java.util.Objects;
 @Setter
 @ToString
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "person_id")
-    private long person_id;
+    private Long personId;
 
     @Column(nullable = false, name = "person_name")
     @NonNull
@@ -41,7 +42,7 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person other = (Person) o;
-        return Objects.equals(person_id, other.person_id)
+        return Objects.equals(personId, other.personId)
                 && name.equals(other.name)
                 && gender.equals(other.gender)
                 && Objects.equals(birth, other.birth)

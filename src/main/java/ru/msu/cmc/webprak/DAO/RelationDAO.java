@@ -13,5 +13,5 @@ public interface RelationDAO {
     Relation getRelationById(Long relationId);
     List<Relation> getRelationAll();
 
-    List<Person> getAllByRelType(Long personId, Relation.RelType type);
+    List<Person> getByRelType(Long personId, Relation.RelType type, String method);
 }

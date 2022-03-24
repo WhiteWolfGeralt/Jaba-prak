@@ -11,6 +11,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class Relation {
     public enum RelType {
@@ -23,7 +24,7 @@ public class Relation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "relation_id")
-    private long relation_id;
+    private Long relationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "target_person")
@@ -52,7 +53,7 @@ public class Relation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Relation other = (Relation) o;
-        return Objects.equals(relation_id, other.relation_id)
+        return Objects.equals(relationId, other.relationId)
                 && Objects.equals(target, other.target)
                 && Objects.equals(perform, other.perform)
                 && Objects.equals(type, other.type)
