@@ -29,7 +29,7 @@ public class PersonDAOTest {
         List<Person> personListAll = (List<Person>) personDAO.getAll();
         assertEquals(6, personListAll.size());
 
-        List<Person> geraltQuery = personDAO.getPersonByName("Геральт");
+        List<Person> geraltQuery = personDAO.getAllPersonByName("Геральт");
         assertEquals(1, geraltQuery.size());
         assertEquals("Геральт из Ривии", geraltQuery.get(0).getName());
 
