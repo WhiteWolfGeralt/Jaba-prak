@@ -10,8 +10,6 @@ import ru.msu.cmc.webprak.models.CommonEntity;
 
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Collection;
 
 @Repository
