@@ -8,6 +8,5 @@ import java.util.List;
 public interface PersonDAO extends CommonDAO<Person, Long> {
 
     List<Person> getPersonByName(String personName);
-    Person getPersonById(Integer personId);
-    List<Person> getPersonAll();
+
 }

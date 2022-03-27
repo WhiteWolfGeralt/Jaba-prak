@@ -11,28 +11,15 @@ import java.util.List;
 @Repository
 public class PersonDAOImpl extends CommonDAOImpl<Person, Long> implements PersonDAO {
 
+    public PersonDAOImpl(){
+        super(Person.class);
+    }
+
     @Override
     public List<Person> getPersonByName(String personName) {
         try (Session session = sessionFactory.openSession()) {
             Query<Person> query = session.createQuery("FROM Person WHERE name LIKE :gotName", Person.class)
                     .setParameter("gotName", likeExpr(personName));
-            return query.getResultList().size() == 0 ? null : query.getResultList();
-        }
-    }
-
-    @Override
-    public Person getPersonById(Integer personId) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Person> query = session.createQuery("FROM Person WHERE id = :param", Person.class)
-                    .setParameter("param", personId);
-            return query.getResultList().size() == 0 ? null : query.getResultList().get(0);
-        }
-    }
-
-    @Override
-    public List<Person> getPersonAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Person> query = session.createQuery("FROM Person", Person.class);
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }
     }

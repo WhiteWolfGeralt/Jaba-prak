@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 import ru.msu.cmc.webprak.DAO.CommonDAO;
 import ru.msu.cmc.webprak.models.CommonEntity;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 
 @Repository
@@ -16,19 +19,41 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
 
     protected SessionFactory sessionFactory;
 
+    protected Class<T> persistentClass;
+
+    public CommonDAOImpl(Class<T> entityClass){
+        this.persistentClass = entityClass;
+    }
+
     @Autowired
     public void setSessionFactory(LocalSessionFactoryBean sessionFactory) {
         this.sessionFactory = sessionFactory.getObject();
     }
 
     @Override
-    public void save(T entity) {
-        if (entity.getId() != null) {
-            entity.setId(null);
-        }
+    public T getById(Long id) {
         try (Session session = sessionFactory.openSession()) {
+            return session.get(persistentClass, id);
+        }
+    }
+
+    @Override
+    public Collection<T> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaQuery<T> criteriaQuery = session.getCriteriaBuilder().createQuery(persistentClass);
+            criteriaQuery.from(persistentClass);
+            return session.createQuery(criteriaQuery).getResultList();
+        }
+    }
+
+    @Override
+    public void save(T entity) {
+        try (Session session = sessionFactory.openSession()) {
+            if (entity.getId() != null) {
+                entity.setId(null);
+            }
             session.beginTransaction();
-            session.save(entity);
+            session.saveOrUpdate(entity);
             session.getTransaction().commit();
         }
     }
@@ -48,7 +73,7 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     public void update(T entity) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.saveOrUpdate(entity);
+            session.update(entity);
             session.getTransaction().commit();
         }
     }

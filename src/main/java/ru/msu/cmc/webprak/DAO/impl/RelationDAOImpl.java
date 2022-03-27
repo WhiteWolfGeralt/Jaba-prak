@@ -13,34 +13,16 @@ import java.util.List;
 @Repository
 public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements RelationDAO {
 
-    @Override
-    public Relation getRelationById(Long relationId) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Relation> query = session.createQuery("FROM Relation WHERE id = :param", Relation.class)
-                    .setParameter("param", relationId);
-            return query.getResultList().size() == 0 ? null : query.getResultList().get(0);
-        }
+    public RelationDAOImpl(){
+        super(Relation.class);
     }
 
     @Override
-    public List<Relation> getRelationAll() {
+    public List<Person> getPerformByRelType(Long personId, Relation.RelType type) {
         try (Session session = sessionFactory.openSession()) {
-            Query<Relation> query = session.createQuery("FROM Relation", Relation.class);
-            return query.getResultList().size() == 0 ? null : query.getResultList();
-        }
-    }
-
-    @Override
-    public List<Person> getByRelType(Long personId, Relation.RelType type, String method) throws Exception {
-        try (Session session = sessionFactory.openSession()) {
-            if (!method.equals("perform") && !method.equals("target")) {
-                throw new Exception("'getByRelType': Wrong method");
-            }
-            Query<Relation> query = session.createQuery(
-                            "FROM Relation WHERE (type = :gotType AND perform = :person)",
+            Query<Relation> query = session.createQuery("FROM Relation WHERE (type = :gotType)",
                             Relation.class)
-                    .setParameter("gotType", type)
-                    .setParameter("person", personId);
+                    .setParameter("gotType", type);
 
             if (query.getResultList().size() == 0) {
                 return null;
@@ -52,5 +34,15 @@ public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements Re
             }
             return res;
         }
+    }
+
+    @Override
+    public List<Person> getTargetByRelType(Long personId, Relation.RelType type) {
+        return null;
+    }
+
+    private List<Person> getImplementor(String implementor) {
+
+        return null;
     }
 }
