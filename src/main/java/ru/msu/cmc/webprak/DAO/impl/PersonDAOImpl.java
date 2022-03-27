@@ -16,12 +16,18 @@ public class PersonDAOImpl extends CommonDAOImpl<Person, Long> implements Person
     }
 
     @Override
-    public List<Person> getPersonByName(String personName) {
+    public List<Person> getAllPersonByName(String personName) {
         try (Session session = sessionFactory.openSession()) {
             Query<Person> query = session.createQuery("FROM Person WHERE name LIKE :gotName", Person.class)
                     .setParameter("gotName", likeExpr(personName));
             return query.getResultList().size() == 0 ? null : query.getResultList();
         }
+    }
+
+    @Override
+    public Person getSinglePersonByName(String personName) {
+        List<Person> candidates = this.getAllPersonByName(personName);
+        return candidates.size() == 1 ? candidates.get(0) : null;
     }
 
     private String likeExpr(String param) {

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface RelationDAO extends CommonDAO<Relation, Long> {
 
-    List<Person> getPerformByRelType(Long personId, Relation.RelType type);
-    List<Person> getTargetByRelType(Long personId, Relation.RelType type);
+    List<Person> getPerformByRelType(Person person, Relation.RelType type);
+    List<Person> getTargetByRelType(Person person, Relation.RelType type);
 }

@@ -9,6 +9,7 @@ import ru.msu.cmc.webprak.models.Relation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements RelationDAO {
@@ -18,31 +19,33 @@ public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements Re
     }
 
     @Override
-    public List<Person> getPerformByRelType(Long personId, Relation.RelType type) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Relation> query = session.createQuery("FROM Relation WHERE (type = :gotType)",
-                            Relation.class)
-                    .setParameter("gotType", type);
-
-            if (query.getResultList().size() == 0) {
-                return null;
-            }
-
-            List<Person> res = new ArrayList<>();
-            for (var relation : query.getResultList()) {
+    public List<Person> getPerformByRelType(Person person, Relation.RelType type) {
+        List<Person> res = new ArrayList<>();
+        for (var relation : getRelation(type)) {
+            if (Objects.equals(relation.getPerform().getId(), person.getId())) {
                 res.add(relation.getPerform());
             }
-            return res;
         }
+        return res;
     }
 
     @Override
-    public List<Person> getTargetByRelType(Long personId, Relation.RelType type) {
-        return null;
+    public List<Person> getTargetByRelType(Person person, Relation.RelType type) {
+        List<Person> res = new ArrayList<>();
+        for (var relation : getRelation(type)) {
+            if (Objects.equals(relation.getTarget().getId(), person.getId())) {
+                res.add(relation.getPerform());
+            }
+        }
+        return res;
     }
 
-    private List<Person> getImplementor(String implementor) {
+    private List<Relation> getRelation(Relation.RelType type) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<Relation> query = session.createQuery("FROM Relation WHERE type = :gotType", Relation.class)
+                    .setParameter("gotType", type);
 
-        return null;
+            return query.getResultList();
+        }
     }
 }
