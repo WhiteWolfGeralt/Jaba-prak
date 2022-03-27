@@ -29,7 +29,7 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
     }
 
     @Override
-    public T getById(Long id) {
+    public T getById(ID id) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(persistentClass, id);
         }
