@@ -5,15 +5,18 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import ru.msu.cmc.webprak.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestPropertySource(locations="classpath:application.properties")
 public class PersonDAOTest {
 
     @Autowired
@@ -23,12 +26,19 @@ public class PersonDAOTest {
 
     @Test
     void testSimpleManipulations() {
-        List<Person> personList = personDAO.getPersonAll();
-        assertEquals(6, personList.size());
+        List<Person> personListAll = (List<Person>) personDAO.getAll();
+        assertEquals(6, personListAll.size());
 
         List<Person> geraltQuery = personDAO.getPersonByName("Геральт");
         assertEquals(1, geraltQuery.size());
         assertEquals("Геральт из Ривии", geraltQuery.get(0).getName());
+
+        Person personId3 = personDAO.getById(3L);
+        assertEquals(3, personId3.getId());
+
+        Person personNotExist = personDAO.getById(100L);
+        assertNull(personNotExist);
+
     }
 
     @BeforeEach
