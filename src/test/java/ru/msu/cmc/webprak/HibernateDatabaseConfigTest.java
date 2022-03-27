@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.test.context.TestPropertySource;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @SpringBootTest
 @TestPropertySource(locations="classpath:application.properties")
 class HibernateDatabaseConfigTest {
@@ -18,8 +20,8 @@ class HibernateDatabaseConfigTest {
     @Test
     public void test() {
         SessionFactory sessionFactoryObject = sessionFactory.getObject();
-        Assertions.assertNotNull(sessionFactoryObject);
+        assertNotNull(sessionFactoryObject);
         Session session = sessionFactoryObject.openSession();
-        Assertions.assertNotNull(session);
+        assertNotNull(session);
     }
 }

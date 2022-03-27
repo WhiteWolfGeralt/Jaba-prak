@@ -28,12 +28,21 @@ public class RelationDAOTest {
 
     @Test
     void testGetters() {
-
         List<Person> personsParents = relationDAO.getTargetByRelType(
                 personDAO.getSinglePersonByName("Паветта"),
-                Relation.RelType.CHILD_IN_LAW);
+                Relation.RelType.CHILD_IN_LAW
+        );
 
         assertEquals(2, personsParents.size());
+
+        List<Person> personSpouse = relationDAO.getPerformByRelType(
+                personDAO.getSinglePersonByName("Эйст"),
+                Relation.RelType.SPOUSE_IN_LAW
+        );
+
+        assertEquals(1, personSpouse.size());
+        assertEquals(personDAO.getSinglePersonByName("Калантэ").getId(), personSpouse.get(0).getId());
+
     }
 
     @BeforeEach

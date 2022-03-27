@@ -20,9 +20,9 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework:spring-orm:5.3.16'
+	implementation 'org.springframework:spring-orm:5.3.17'
 	implementation 'org.projectlombok:lombok:1.18.22'
-	implementation 'org.hibernate:hibernate-core:5.6.5.Final'
+	implementation 'org.hibernate:hibernate-core:5.6.7.Final'
 	implementation 'org.postgresql:postgresql:42.3.3'
 
 	compileOnly 'org.projectlombok:lombok'
