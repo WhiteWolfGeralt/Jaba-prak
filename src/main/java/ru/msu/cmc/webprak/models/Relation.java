@@ -26,13 +26,13 @@ public class Relation implements CommonEntity<Long> {
     @Column(nullable = false, name = "relation_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "target_person")
     @ToString.Exclude
     @NonNull
     private Person target;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "perform_person")
     @ToString.Exclude
     @NonNull

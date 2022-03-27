@@ -19,13 +19,13 @@ public class Person2Place implements CommonEntity<Long> {
     @Column(nullable = false, name = "node_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person")
     @ToString.Exclude
     @NonNull
     private Person person;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "place")
     @ToString.Exclude
     @NonNull
