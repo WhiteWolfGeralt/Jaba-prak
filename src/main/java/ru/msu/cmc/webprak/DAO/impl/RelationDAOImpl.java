@@ -27,7 +27,7 @@ public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements Re
         List<Person> res = new ArrayList<>();
         for (var relation : getRelation(type)) {
             if (Objects.equals(relation.getPerform().getId(), person.getId())) {
-                res.add(relation.getPerform());
+                res.add(relation.getTarget());
             }
         }
         return res;

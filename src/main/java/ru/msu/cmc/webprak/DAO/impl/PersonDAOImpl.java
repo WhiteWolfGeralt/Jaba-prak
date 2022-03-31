@@ -27,7 +27,8 @@ public class PersonDAOImpl extends CommonDAOImpl<Person, Long> implements Person
     @Override
     public Person getSinglePersonByName(String personName) {
         List<Person> candidates = this.getAllPersonByName(personName);
-        return candidates.size() == 1 ? candidates.get(0) : null;
+        return candidates == null ? null :
+                candidates.size() == 1 ? candidates.get(0) : null;
     }
 
     private String likeExpr(String param) {
