@@ -27,7 +27,7 @@ public class RelationDAOTest {
     private SessionFactory sessionFactory;
 
     @Test
-    void testGetters() {
+    void testTarget() {
         List<Person> personsParents = relationDAO.getTargetByRelType(
                 personDAO.getSinglePersonByName("Паветта"),
                 Relation.RelType.CHILD_IN_LAW
@@ -35,6 +35,17 @@ public class RelationDAOTest {
 
         assertEquals(2, personsParents.size());
 
+        List<Person> personSpouse = relationDAO.getTargetByRelType(
+                personDAO.getSinglePersonByName("Рёгнер"),
+                Relation.RelType.SPOUSE_IN_LAW
+        );
+
+        assertEquals(1, personSpouse.size());
+        assertEquals(personDAO.getSinglePersonByName("Калантэ").getId(), personSpouse.get(0).getId());
+    }
+
+    @Test
+    void testPerform() {
         List<Person> personSpouse = relationDAO.getPerformByRelType(
                 personDAO.getSinglePersonByName("Эйст"),
                 Relation.RelType.SPOUSE_IN_LAW
@@ -43,6 +54,13 @@ public class RelationDAOTest {
         assertEquals(1, personSpouse.size());
         assertEquals(personDAO.getSinglePersonByName("Калантэ").getId(), personSpouse.get(0).getId());
 
+        List<Person> personsChild = relationDAO.getPerformByRelType(
+                personDAO.getSinglePersonByName("Паветта"),
+                Relation.RelType.CHILD_IN_LAW
+        );
+
+        assertEquals(1, personsChild.size());
+        assertEquals(personDAO.getSinglePersonByName("Цирилла").getId(), personsChild.get(0).getId());
     }
 
     @BeforeEach
@@ -78,8 +96,8 @@ public class RelationDAOTest {
 
             relationList.add(new Relation(
                     null,
-                    personDAO.getSinglePersonByName("Калантэ"),
                     personDAO.getSinglePersonByName("Рёгнер"),
+                    personDAO.getSinglePersonByName("Калантэ"),
                     Relation.RelType.SPOUSE_IN_LAW,
                     1235L,
                     1250L
@@ -91,6 +109,15 @@ public class RelationDAOTest {
                     personDAO.getSinglePersonByName("Эйст"),
                     Relation.RelType.SPOUSE_IN_LAW,
                     1251L,
+                    null
+            ));
+
+            relationList.add(new Relation(
+                    null,
+                    personDAO.getSinglePersonByName("Цирилла"),
+                    personDAO.getSinglePersonByName("Паветта"),
+                    Relation.RelType.CHILD_IN_LAW,
+                    1252L,
                     null
             ));
         }

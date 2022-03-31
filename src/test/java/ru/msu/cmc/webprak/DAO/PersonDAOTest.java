@@ -38,7 +38,29 @@ public class PersonDAOTest {
 
         Person personNotExist = personDAO.getById(100L);
         assertNull(personNotExist);
+    }
 
+    @Test
+    void testUpdate() {
+        Long birth = 1220L, death = 1260L;
+
+        Person updatePerson = personDAO.getSinglePersonByName("Вираксас");
+        updatePerson.setBirth(birth);
+        updatePerson.setDeath(death);
+        personDAO.update(updatePerson);
+
+        Person viraxas = personDAO.getSinglePersonByName("Вираксас");
+        assertEquals(birth, viraxas.getBirth());
+        assertEquals(death, viraxas.getDeath());
+    }
+
+    @Test
+    void testDelete() {
+        Person deletePerson = personDAO.getSinglePersonByName("Йеннифэр");
+        personDAO.delete(deletePerson);
+
+        Person yennifer = personDAO.getSinglePersonByName("Йеннифэр");
+        assertNull(yennifer);
     }
 
     @BeforeEach
