@@ -84,4 +84,14 @@ public abstract class CommonDAOImpl<T extends CommonEntity<ID>, ID extends Seria
             session.getTransaction().commit();
         }
     }
+
+    @Override
+    public void deleteById(ID id) {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            T entity = getById(id);
+            session.delete(entity);
+            session.getTransaction().commit();
+        }
+    }
 }

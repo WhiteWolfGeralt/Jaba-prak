@@ -15,5 +15,7 @@ public interface CommonDAO<T extends CommonEntity<ID>, ID> {
 
     void delete(T entity);
 
+    void deleteById(ID id);
+
     void update(T entity);
 }
