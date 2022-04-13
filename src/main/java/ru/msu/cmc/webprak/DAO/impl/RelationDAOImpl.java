@@ -48,6 +48,16 @@ public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements Re
         return res;
     }
 
+    @Override
+    public boolean bornInMarriage(Long id) {
+        for (Relation relation : getRelation(Relation.RelType.BASTARD)) {
+            if (Objects.equals(relation.getTarget().getId(), id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private List<Relation> getRelation(Relation.RelType type) {
         try (Session session = sessionFactory.openSession()) {
             Query<Relation> query = session.createQuery("FROM Relation WHERE type = :gotType", Relation.class)
