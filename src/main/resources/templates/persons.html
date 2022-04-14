@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Люди</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="general :: page-header"> </div>
+
+<div class="indent">
+    <form method="get" action="/editPerson">
+        <button id="addPersonButton" type="submit" class="btn btn-primary">Добавить человека</button>
+    </form>
+    <br>
+
+    <table class="table table-bordered table-warning">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Полное имя</th>
+            <th scope="col"> Годы жизни</th>
+            <th scope="col"> Мать</th>
+            <th scope="col"> Отец</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${people.isEmpty()}">
+            <td colspan="6"> В базе пока нет ни одного человека. <a href="/editPerson">Добавить?</a></td>
+        </tr>
+        <tr th:each="person : ${people}">
+            <td><a th:href="'/person?personId=' + ${person.getId()}">
+                <span th:text="${person.getName()}"> </span></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="general :: site-footer"></div>
+<div th:replace="general :: site-script"></div>
+
+</body>
+</html>

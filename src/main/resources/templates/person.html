@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/general.css}"/>
+    <title>Человек</title>
+</head>
+<body>
+<div th:replace="general :: site-header"> </div>
+
+<div class="indent">
+    <div id="personInfo">
+        <h4 th:text="${person.getName()}"></h4>
+        <p th:text="'ID: ' + ${person.getId()}"></p>
+        <p th:if="${person.getName() != null}" th:text="'Имя: ' + ${person.getName()}"></p>
+        <p th:if="${person.getGender() != null}" th:text="'Пол: ' + ${person.getGender()}"></p>
+        <p th:if="${person.getMiddleName() != null}" th:text="'Отчество: ' + ${person.getMiddleName()}"></p>
+        <p th:if="${person.getBirthDate() != null}" th:text="'Дата рождения: ' + ${person.getBirthDate()}"></p>
+        <p th:if="${person.getDeathDate() != null}" th:text="'Дата смерти: ' + ${person.getDeathDate()}"></p>
+        <p th:if="${person.getInfo() != null}" th:text="'Краткая характеристика: ' + ${person.getInfo()}"></p>
+
+        <p> Места проживания:&nbsp <span th:if="${placeService.getPlacesOfPerson(person).isEmpty()}">нет</span>
+            <a th:each="place, iter: ${placeService.getPlacesOfPerson(person)}" th:href="'/place?placeId=' + ${place.getPlaceId()}">
+                <span th:text="${place.getPlaceName()} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p th:if="${person.getMotherId() != null}">Мать:&nbsp
+            <a th:href="'/person?personId=' + ${person.getMotherId()}">
+                <span th:text="${personService.getFullName(personService.getPersonById(person.getMotherId()))}"> </span></a>
+        </p>
+        <p th:if="${person.getFatherId() != null}">Отец:&nbsp
+            <a th:href="'/person?personId=' + ${person.getFatherId()}">
+                <span th:text="${personService.getFullName(personService.getPersonById(person.getFatherId()))}"> </span></a>
+        </p>
+        <p>Супруг(а):&nbsp <span th:if="${personService.getSpouse(person) == null}">нет</span>
+            <a th:href="'/person?personId=' + ${personService.getSpouse(person) != null ? personService.getSpouse(person).getPersonId() : 0}">
+                <span th:text="${personService.getFullName(personService.getSpouse(person))}"> </span></a>
+        </p>
+        <p> Дети:&nbsp <span th:if="${personService.getChildren(person).isEmpty()}">нет</span>
+            <a th:each="child, iter: ${personService.getChildren(person)}" th:href="'/person?personId=' + ${child.getPersonId()}">
+                <span th:text="${personService.getFullName(child)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p> Братья и сёстры:&nbsp <span th:if="${personService.getSiblings(person).isEmpty()}">нет</span>
+            <a th:each="p, iter: ${personService.getSiblings(person)}" th:href="'/person?personId=' + ${p.getPersonId()}">
+                <span th:text="${personService.getFullName(p)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p> Дяди и тёти:&nbsp <span th:if="${personService.getUncles(person).isEmpty()}">нет</span>
+            <a th:each="p, iter: ${personService.getUncles(person)}" th:href="'/person?personId=' + ${p.getPersonId()}">
+                <span th:text="${personService.getFullName(p)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p> Племянники:&nbsp <span th:if="${personService.getNephews(person).isEmpty()}">нет</span>
+            <a th:each="p, iter: ${personService.getNephews(person)}" th:href="'/person?personId=' + ${p.getPersonId()}">
+                <span th:text="${personService.getFullName(p)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p> Двоюродные братья и сёстры:&nbsp <span th:if="${personService.getCousins(person).isEmpty()}">нет</span>
+            <a th:each="p, iter: ${personService.getCousins(person)}" th:href="'/person?personId=' + ${p.getPersonId()}">
+                <span th:text="${personService.getFullName(p)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p> Все предки:&nbsp <span th:if="${personService.getAncestors(person).isEmpty()}">нет</span>
+            <a th:each="p, iter: ${personService.getAncestors(person)}" th:href="'/person?personId=' + ${p.getPersonId()}">
+                <span th:text="${personService.getFullName(p)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+        <p> Все потомки:&nbsp <span th:if="${personService.getDescendants(person).isEmpty()}">нет</span>
+            <a th:each="p, iter: ${personService.getDescendants(person)}" th:href="'/person?personId=' + ${p.getPersonId()}">
+                <span th:text="${personService.getFullName(p)} + ${!iter.last ? ',' : ''}"></span>
+            </a>
+        </p>
+
+    </div>
+
+    <!--edit delete order button group-->
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <form style="margin-right: 30px" method="get" action="/editPerson">
+                <input type="hidden" name="personId" th:value="${person.getPersonId()}"/>
+                <button id="editButton" type="submit" class="btn btn-secondary">Редактировать информацию о человеке</button>
+            </form>
+            <form method="post" action="/removePerson">
+                <input type="hidden" name="personId" th:value="${person.getPersonId()}"/>
+                <button id="deleteButton" type="submit" class="btn btn-secondary">Удалить человека из базы</button>
+            </form>
+        </div>
+    </div>
+    <!--end of button group-->
+
+</div>
+
+
+</body>
+</html>
