@@ -49,9 +49,33 @@ public class RelationDAOImpl extends CommonDAOImpl<Relation, Long> implements Re
     }
 
     @Override
-    public boolean bornInMarriage(Long id) {
+    public Person getMother(Person person) {
+        List<Person> personList = getTargetByRelType(person, Relation.RelType.CHILD_IN_LAW);
+        personList.addAll(getTargetByRelType(person, Relation.RelType.BASTARD));
+        for (Person mother : personList) {
+            if (mother.getGender().equals("Жен")) {
+                return mother;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Person getFather(Person person) {
+        List<Person> personList = getTargetByRelType(person, Relation.RelType.CHILD_IN_LAW);
+        personList.addAll(getTargetByRelType(person, Relation.RelType.BASTARD));
+        for (Person father : personList) {
+            if (father.getGender().equals("Муж")) {
+                return father;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean bornInMarriage(Person person) {
         for (Relation relation : getRelation(Relation.RelType.BASTARD)) {
-            if (Objects.equals(relation.getTarget().getId(), id)) {
+            if (Objects.equals(relation.getTarget().getId(), person.getId())) {
                 return false;
             }
         }

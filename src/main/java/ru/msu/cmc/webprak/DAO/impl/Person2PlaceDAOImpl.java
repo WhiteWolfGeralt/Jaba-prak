@@ -20,7 +20,7 @@ public class Person2PlaceDAOImpl extends CommonDAOImpl<Person2Place, Long> imple
     }
 
     @Override
-    public List<Place> getAllPlaces(Long id) {
+    public List<Place> getAllPersonsPlaces(Long id) {
         List<Place> ret = new ArrayList<>();
         for (Person2Place person2Place : getAll()) {
             if (Objects.equals(person2Place.getPerson().getId(), id)) {

@@ -10,5 +10,7 @@ public interface RelationDAO extends CommonDAO<Relation, Long> {
     List<Person> getPerformByRelType(Person person, Relation.RelType type);
     List<Person> getTargetByRelType(Person person, Relation.RelType type);
 
-    boolean bornInMarriage(Long id);
+    Person getMother(Person person);
+    Person getFather(Person person);
+    boolean bornInMarriage(Person person);
 }

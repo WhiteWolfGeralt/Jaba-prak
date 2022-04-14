@@ -37,6 +37,14 @@ public class PersonDAOImpl extends CommonDAOImpl<Person, Long> implements Person
     }
 
     @Override
+    public String getYearsOfLife(Person person) {
+        String ret = "";
+        ret += person.getBirth() != null ? person.getBirth().toString() + '-' : "неизвестно-";
+        ret += person.getDeath() != null ? person.getDeath().toString() : "неизвестно";
+        return ret;
+    }
+
+    @Override
     public List<Person> getByFilter(Filter filter) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();

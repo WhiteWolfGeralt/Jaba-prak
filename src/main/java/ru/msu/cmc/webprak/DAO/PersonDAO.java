@@ -10,6 +10,7 @@ public interface PersonDAO extends CommonDAO<Person, Long> {
 
     List<Person> getAllPersonByName(String personName);
     Person getSinglePersonByName(String personName);
+    String getYearsOfLife(Person person);
     List<Person> getByFilter(Filter filter);
 
     @Builder
