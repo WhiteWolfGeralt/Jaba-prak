@@ -36,14 +36,30 @@
             <td colspan="6"> В базе пока нет ни одного человека. <a href="/editPerson">Добавить?</a></td>
         </tr>
         <tr th:each="person : ${people}">
-            <td><a th:href="'/person?personId=' + ${person.getId()}">
-                <span th:text="${person.getName()}"> </span></a></td>
+            <td>
+                <a th:href="'/person?personId=' + ${person.getId()}">
+                    <span th:text="${person.getName()}"> </span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${personService.getYearsOfLife(person)}"> </span>
+            </td>
+            <td th:if="${relationService.getMother(person)} != null">
+                <a th:href="'/person?personId=' + ${relationService.getMother(person).getId()}">
+                    <span th:text="${relationService.getMother(person).getName()}"> </span>
+                </a>
+            </td>
+            <td th:if="${relationService.getFather(person)} != null">
+                <a th:href="'/person?personId=' + ${relationService.getFather(person).getId()}">
+                    <span th:text="${relationService.getFather(person).getName()}"> </span>
+                </a>
+            </td>
         </tr>
+
         </tbody>
     </table>
 </div>
 
-<div th:replace="general :: site-footer"></div>
 <div th:replace="general :: site-script"></div>
 
 </body>
