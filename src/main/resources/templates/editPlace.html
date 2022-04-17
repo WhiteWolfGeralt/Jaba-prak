@@ -19,11 +19,11 @@
 <div class="indent">
     <form method="post" action="/savePlace">
 
-        <label for="placeId">Название:</label>
-        <input type="text" id="placeId" name="placeId" required th:value="${place.getName()}"><br><br>
+        <label for="placeName">Название:</label>
+        <input type="text" id="placeName" name="placeName" required th:value="${place.getName()}"><br><br>
 
         <label for="placeName">Описание:</label>
-        <input type="text" id="placeName" name="placeName" required th:value="${place.getDescription()}"><br><br>
+        <input type="text" id="placeDescription" name="placeDescription" required th:value="${place.getDescription()}"><br><br>
 
         <input id="submitButton" type="submit" value="Сохранить" class="btn btn-primary">
     </form>

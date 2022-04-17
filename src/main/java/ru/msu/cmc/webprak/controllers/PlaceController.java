@@ -62,7 +62,7 @@ public class PlaceController {
 
     @PostMapping("/savePlace")
     public String savePlacePage(@RequestParam(name = "placeName") String placeName,
-                                @RequestParam(name = "description") String description,
+                                @RequestParam(name = "placeDescription") String description,
                                 Model model) {
 
         Place place = new Place(placeName, description);
