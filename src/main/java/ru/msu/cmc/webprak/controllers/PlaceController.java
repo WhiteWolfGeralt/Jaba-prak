@@ -69,9 +69,6 @@ public class PlaceController {
         placeDAO.save(place);
 
         return String.format("redirect:/place?placeId=%d", place.getId());
-
-       /* model.addAttribute("error_msg", "Данные о месте не сохранены");
-        return "errorPage";*/
     }
 
     @PostMapping("/removePlace")
